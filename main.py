@@ -18,8 +18,8 @@ class Snake:    # the snake!
     def __init__(self):
         self.length = 1    # length of snake array
         self.speed = 40    # speed in pixels
-        self.x = [360] * self.length    # position of snake in x
-        self.y = [360] * self.length    # position of snake in y
+        self.x = [360]    # position of snake in x
+        self.y = [360]    # position of snake in y
         self.dir_x = 0    # direction snake in x
         self.dir_y = 0    # direction of snake in y
 
@@ -32,20 +32,22 @@ class Snake:    # the snake!
         self.x[0] = self.x[0] + (self.speed * self.dir_x)    # takes the position of head and adds the vector to x
         self.y[0] = self.y[0] + (self.speed * self.dir_y)    # takes the position of head and adds the vector to y
         for i in range(1, self.length, 1):    # loop through array changing previous element value to current value...maybe
-            self.x[i] = self.x[i-1]
-            self.y[i] = self.y[i-1]
+            self.x[i] = self.x[i-1] - 40
+            self.y[i] = self.y[i-1] - 40
         # wraps snake from one side of screen to the other in both x and y
-        if self.x == screen_width:
-            self.x = 0
-        elif self.x == -size:
-            self.x = screen_width - size
-        elif self.y == screen_height:
-            self.y = 0
-        elif self.y == -size:
-            self.y = screen_height - size
+        if self.x[0] == screen_width:
+            self.x[0] = 0
+        elif self.x[0] == -size:
+            self.x[0] = screen_width - size
+        elif self.y[0] == screen_height:
+            self.y[0] = 0
+        elif self.y[0] == -size:
+            self.y[0] = screen_height - size
 
     def grow(self):    # increases the x and y position arrays by 1
         self.length += 1
+        self.x.append(self.x[-1])
+        self.y.append(self.y[-1])
         
 
 class Food:    # makes the foods
@@ -54,8 +56,8 @@ class Food:    # makes the foods
         self.y = random.randrange(0, 760, 40)
 
     def new_location(self):
-        self.x = random.randrange(0, 760, 40)
-        self.y = random.randrange(0, 760, 40)
+        self.x = random.randrange(0, screen_width - size, size)
+        self.y = random.randrange(0, screen_height - size, size)
 
     def draw(self):
         pygame.draw.rect(screen, (0, 255, 0), [self.x, self.y, size, size])
