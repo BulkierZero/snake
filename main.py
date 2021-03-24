@@ -31,6 +31,9 @@ class Snake:    # the snake!
     def move(self):    # changes x and y coordinates of snake
         self.x[0] = self.x[0] + (self.speed * self.dir_x)    # takes the position of head and adds the vector to x
         self.y[0] = self.y[0] + (self.speed * self.dir_y)    # takes the position of head and adds the vector to y
+        for i in range(1, self.length, 1):    # loop through array changing previous element value to current value...maybe
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
         # wraps snake from one side of screen to the other in both x and y
         if self.x == screen_width:
             self.x = 0
@@ -43,7 +46,7 @@ class Snake:    # the snake!
 
     def grow(self):    # increases the x and y position arrays by 1
         self.length += 1
-
+        
 
 class Food:    # makes the foods
     def __init__(self):    # initial x and y coordinates
