@@ -9,7 +9,7 @@ random = random.Random()    # random object for new location of food after eaten
 
 
 def eaten():    # function for when food is eaten by snake.
-    if snake.x == food.x and snake.y == food.y:  # if snake head and food coordinates match
+    if snake.x[0] == food.x and snake.y[0] == food.y:  # if snake head and food coordinates match
         food.new_location()    # gives new food location
         snake.grow()    # increases snakes length by 1
 
@@ -29,8 +29,11 @@ class Snake:    # the snake!
             pygame.draw.rect(screen, (255, 0, 0), [self.x[i], self.y[i], size, size])
 
     def move(self):    # changes x and y coordinates of snake
-        self.x = self.x + (self.speed * self.dir_x)    # takes the position of head and adds the vector to x
-        self.y = self.y + (self.speed * self.dir_y)    # takes the position of head and adds the vector to y
+        self.x[0] = self.x[0] + (self.speed * self.dir_x)    # takes the position of head and adds the vector to x
+        self.y[0] = self.y[0] + (self.speed * self.dir_y)    # takes the position of head and adds the vector to y
+        for i in range(1, self.length, 1):    # loop through array changing previous element value to current value...maybe
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
         # wraps snake from one side of screen to the other in both x and y
         if self.x == screen_width:
             self.x = 0
@@ -43,7 +46,7 @@ class Snake:    # the snake!
 
     def grow(self):    # increases the x and y position arrays by 1
         self.length += 1
-
+        
 
 class Food:    # makes the foods
     def __init__(self):    # initial x and y coordinates
