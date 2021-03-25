@@ -32,7 +32,7 @@ class Snake:    # the snake!
     def draw(self):    # draws the snake to surface.
         for i in range(self.length):    # its supposed to run through the snake array and draw each x and y coordinate.
             pygame.draw.rect(screen, (255, 0, 0), [self.x[0], self.y[0], size, size])
-            pygame.draw.rect(screen, (120, 0, 0), [self.x[i], self.y[i], size, size])
+            pygame.draw.rect(screen, ((255-(i*5)), 0, 0), [self.x[i], self.y[i], size, size])
 
     def move(self):    # changes x and y coordinates of snake
         for i in range(self.length-1, 0, -1):    # loop through array backwards changing next element to current
