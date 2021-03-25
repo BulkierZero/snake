@@ -31,6 +31,12 @@ class Snake:    # the snake!
     def move(self):    # changes x and y coordinates of snake
         self.x[0] = self.x[0] + (self.speed * self.dir_x)    # takes the position of head and adds the vector to x
         self.y[0] = self.y[0] + (self.speed * self.dir_y)    # takes the position of head and adds the vector to y
+<<<<<<< Updated upstream
+=======
+        for i in range(1, self.length, 1):    # loop through array changing previous element value to current value...maybe
+            self.x[i] = self.x[i-1] - self.x[i]
+            self.y[i] = self.y[i-1]  - self.y[i]
+>>>>>>> Stashed changes
         # wraps snake from one side of screen to the other in both x and y
         if self.x == screen_width:
             self.x = 0
@@ -47,9 +53,9 @@ class Snake:    # the snake!
 
 class Food:    # makes the foods
     def __init__(self):    # initial x and y coordinates
-        self.x = random.randrange(0, 760, 40)
-        self.y = random.randrange(0, 760, 40)
-
+        self.x = random.randrange(0, screen_width - size, size)
+        self.y = random.randrange(0, screen_height, size)
+        
     def new_location(self):
         self.x = random.randrange(0, 760, 40)
         self.y = random.randrange(0, 760, 40)
